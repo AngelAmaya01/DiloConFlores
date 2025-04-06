@@ -1,0 +1,43 @@
+﻿services:
+  - type: web
+    name: floralize-api
+    runtime: dotnet
+    buildCommand: dotnet publish -c Release -o ./publish
+    startCommand: dotnet ./publish/Floralize.Api.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: Jwt__Issuer
+        value: ${RENDER_EXTERNAL_URL}
+      - key: Jwt__Audience
+        value: ${RENDER_EXTERNAL_URL}
+      - key: Jwt__Key
+        generateValue: true
+      - key: Jwt__ExpiryMinutes
+        value: "60"
+      - key: Jwt__RefreshTokenExpiry
+        value: "120"
+      - key: FrontendURL
+        value: https://tu-frontend.com # Reemplaza con tu URL de frontend
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: floralize-db
+          property: connectionString
+      - key: CloudinaryURL__CloudName
+        value: drpiwaddv
+      - key: CloudinaryURL__ApiKey
+        value: 184324765882169
+      - key: CloudinaryURL__ApiSecret
+        value: yI1JpfqGHgGNwzsFXVgxjq7QWeM
+      - key: EmailSettings__SmtpServer
+        value: smtp.gmail.com
+      - key: EmailSettings__SmtpPort
+        value: "587"
+      - key: EmailSettings__SmtpUsername
+        value: angelnataren16@gmail.com
+      - key: EmailSettings__SmtpPassword
+        value: donsqaayebqslcgs
+      - key: EmailSettings__SenderEmail
+        value: angelnataren16@gmail.com
+      - key: EmailSettings__SenderName
+        value: Floralize
